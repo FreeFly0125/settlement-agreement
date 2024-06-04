@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { SettlementService, UserService } from "services";
+import { sockets } from "socket";
 import { SettlementStatus, UserRole, VerifyPayload } from "types";
 
 export const verify_settlement = async (req: Request, res: Response) => {
@@ -24,5 +25,20 @@ export const verify_settlement = async (req: Request, res: Response) => {
   }
 
   await SettlementService.verify(id, payload.status);
+
+  sockets.broadcast(
+    JSON.stringify({
+      type: "update",
+      data: {
+        id: id,
+        title: settlement.title,
+        description: settlement.description,
+        proposer: settlement.proposer,
+        verifier: settlement.verifier,
+        status: payload.status,
+      },
+    })
+  );
+
   res.status(200).send({ id: id, status: payload.status });
 };

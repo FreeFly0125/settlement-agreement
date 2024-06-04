@@ -48,21 +48,24 @@ export const SettlementDetail: React.FC<DetailProps> = ({
     const action = localStorage.getItem("action") ?? "";
 
     if (action === "save") {
-      if (settlement.id === 0) {
-        if (payload.verifier === "") payload.verifier = verifiers[0].name;
-        const url = "http://localhost:4000/settlement";
-        const result = await axios.post(url, payload);
-        const id = result.data.id;
-        insertSettlement({ ...payload, id });
-        setDetailOption(false);
-        toast.success("New settlement requested!");
-      } else {
-        const url = `http://localhost:4000/settlement/${settlement.id}`;
-        const result = await axios.put(url, payload);
-        const id = result.data.id;
-        updateSettlement({ ...payload, id });
-        setDetailOption(false);
-        toast.success("Settlement updated!");
+      try {
+        if (settlement.id === 0) {
+          if (payload.verifier === "") payload.verifier = verifiers[0].name;
+          const url = "http://localhost:4000/settlement";
+          const result = await axios.post(url, payload);
+          const id = result.data.id;
+          setDetailOption(false);
+          toast.success("New settlement requested!");
+        } else {
+          const url = `http://localhost:4000/settlement/${settlement.id}`;
+          const result = await axios.put(url, payload);
+          const id = result.data.id;
+          updateSettlement({ ...payload, id });
+          setDetailOption(false);
+          toast.success("Settlement updated!");
+        }
+      } catch (e) {
+        toast.error("Update failed!");
       }
     } else {
       const url = `http://localhost:4000/verify/${settlement.id}`;

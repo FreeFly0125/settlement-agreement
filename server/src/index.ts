@@ -5,6 +5,7 @@ import express, { NextFunction } from "express";
 import { Logger } from "utils";
 import { dbHandler } from "database";
 import appRoute from "routes";
+import { socketServer, sockets } from "socket";
 
 dotenv.config();
 
