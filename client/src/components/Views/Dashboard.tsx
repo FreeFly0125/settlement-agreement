@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { SettlementTable, SettlementDetail, SettlementDelete } from "../Common";
 import { Settlement, SettlementStatus, UserRole } from "../../types";
 import axios from "axios";
@@ -15,6 +15,7 @@ export const DashboardView: React.FC = () => {
 
   const userrole = localStorage.getItem("userrole") ?? "";
 
+  const socketRef = useRef<WebSocket | null>(null);
   const [settles, setSettles] = useState<Settlement[]>([]);
   const [isDetail, setIsDetail] = useState<boolean>(false);
   const [isDelete, setIsDelete] = useState<boolean>(false);
@@ -59,6 +60,45 @@ export const DashboardView: React.FC = () => {
     };
 
     fetchData();
+
+    if (!socketRef.current) {
+      const socket_url = "ws://localhost:4004";
+      const ws = new WebSocket(socket_url);
+
+      ws.onopen = () => {
+        console.log("WebSocket connection opened");
+      };
+
+      ws.onerror = (error) => {
+        console.error("WebSocket Error:", error);
+      };
+
+      ws.onclose = () => {
+        console.log("WebSocket connection closed");
+      };
+
+      ws.onmessage = (event) => {
+        const data: any = JSON.parse(event.data);
+        if (data.type === "connect") {
+          console.log("Socket connected!");
+        } else if (data.type === "message") {
+          console.log("Message received: ", data.message);
+        } else if (data.type === "new") {
+          const settlement: Settlement = data.data;
+          insertSettlement(settlement);
+        } else if (data.type === "update") {
+          const settlement: Settlement = data.data;
+          updateSettlement(settlement);
+        } else if (data.type === "delete") {
+          const settlement: Settlement = data.data;
+          deleteSettlement(settlement);
+        } else {
+          console.log("Unknown message: ", data);
+        }
+      };
+
+      socketRef.current = ws;
+    }
   }, []);
 
   return (
