@@ -16,7 +16,7 @@ export interface UserProfile {
 
 export interface Settlement {
   title: string;
-  description: string;
+  price: string;
   proposer: string;
   verifier: string;
   status: SettlementStatus;

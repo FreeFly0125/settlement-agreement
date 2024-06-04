@@ -26,7 +26,7 @@ export const SettlementTable: React.FC<SettlementTableProps> = ({
             </th>
             <th scope="col" className="w-1/3 p-3">
               <div className="flex justify-center">
-                <p>Description</p>
+                <p>Price</p>
               </div>
             </th>
             <th scope="col" className="w-1/8 p-3">
@@ -62,9 +62,9 @@ export const SettlementTable: React.FC<SettlementTableProps> = ({
               <td className="px-3 py-4">
                 <div className="flex justify-center">
                   <p>
-                    {settle.description.length <= 70
-                      ? settle.description
-                      : settle.description.substring(0, 70) + "..."}
+                    {settle.price.length <= 70
+                      ? settle.price
+                      : settle.price.substring(0, 70) + "..."}
                   </p>
                 </div>
               </td>

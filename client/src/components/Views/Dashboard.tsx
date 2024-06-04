@@ -7,7 +7,7 @@ export const DashboardView: React.FC = () => {
   const new_settlement = {
     id: 0,
     title: "",
-    description: "",
+    price: "",
     proposer: localStorage.getItem("username") ?? "",
     verifier: "",
     status: SettlementStatus.Pending,

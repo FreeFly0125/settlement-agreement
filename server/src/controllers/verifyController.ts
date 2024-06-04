@@ -32,7 +32,7 @@ export const verify_settlement = async (req: Request, res: Response) => {
       data: {
         id: id,
         title: settlement.title,
-        description: settlement.description,
+        price: settlement.price,
         proposer: settlement.proposer,
         verifier: settlement.verifier,
         status: payload.status,

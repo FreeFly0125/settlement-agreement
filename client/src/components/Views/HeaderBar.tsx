@@ -29,6 +29,14 @@ export const HeaderBarView: React.FC = () => {
     localStorage.removeItem("username");
     localStorage.removeItem("userrole");
     navigate(PATH.LOGIN);
+  };
+
+  const toLogin = () => {
+    navigate(PATH.LOGIN);
+  }
+
+  const toRegister = () => {
+    navigate(PATH.REGISTER);
   }
 
   return (
@@ -38,7 +46,16 @@ export const HeaderBarView: React.FC = () => {
         <div className="flex text-white gap-4">
           <Tag title="Name" value={username} />
           <Tag title="Role" value={userrole} />
-          <button className="bg-red-400 rounded-md p-2" onClick={logout}>Log Out</button>
+          <button className="bg-red-400 rounded-md p-2" onClick={logout}>
+            Log Out
+          </button>
+        </div>
+      )}
+      {!isDashboard && (
+        <div className="flex text-white text-lg gap-2 pr-4">
+          <button onClick={toLogin} className="hover:underline">Login</button>
+          <p>|</p>
+          <button onClick={toRegister} className="hover:underline">Register</button>
         </div>
       )}
     </div>

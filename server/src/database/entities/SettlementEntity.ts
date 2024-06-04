@@ -9,8 +9,8 @@ export class SettlementEntity {
   @Column({ name: "title", type: "varchar", length: 255 })
   title: string;
 
-  @Column({ name: "description", type: "text" })
-  description: string;
+  @Column({ name: "price", type: "text" })
+  price: string;
 
   @Column({ name: "proposer", type: "varchar", length: 255 })
   proposer: string;

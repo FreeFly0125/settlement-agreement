@@ -94,9 +94,8 @@ export const SettlementDetail: React.FC<DetailProps> = ({
 
   const detailSchema = Yup.object().shape({
     title: Yup.string().required("Title is required!"),
-    description: Yup.string()
-      .required("Description is require!")
-      .min(3, "Must be at least 3 characteres"),
+    price: Yup.number()
+      .required("Price is require!")
   });
   const errorStyle = "text-xs mb-10";
   return (
@@ -118,7 +117,7 @@ export const SettlementDetail: React.FC<DetailProps> = ({
           onSubmit={onSubmit}
           initialValues={{
             title: settlement.title,
-            description: settlement.description,
+            price: settlement.price,
             proposer: settlement.proposer,
             verifier: settlement.verifier,
             status: settlement.status,
@@ -147,19 +146,19 @@ export const SettlementDetail: React.FC<DetailProps> = ({
                 )}
               </div>
               <div className="flex flex-col gap-3">
-                <label>Description</label>
+                <label>Price</label>
                 <Field
-                  name="description"
-                  placeholder="Description"
+                  name="price"
+                  placeholder="Price"
                   className={`w-full border rounded-lg px-5 py-2 ${
-                    errors.description && touched.description
+                    errors.price && touched.price
                       ? "outline-red-500"
                       : "outline-blue-500"
                   }`}
                 ></Field>
-                {errors.description && touched.description ? (
+                {errors.price && touched.price ? (
                   <div className={`${errorStyle} text-red-500`}>
-                    {errors.description}
+                    {errors.price}
                   </div>
                 ) : (
                   <div></div>

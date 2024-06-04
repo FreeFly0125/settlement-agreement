@@ -21,7 +21,7 @@ export interface LoginPayload {
 export interface Settlement {
   id: number;
   title: string;
-  description: string;
+  price: string;
   proposer: string;
   verifier: string;
   status: SettlementStatus;
@@ -29,7 +29,7 @@ export interface Settlement {
 
 export interface SettlementPayload {
   title: string;
-  description: string;
+  price: string;
   proposer: string;
   verifier: string;
   status: SettlementStatus;

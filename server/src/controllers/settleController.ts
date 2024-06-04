@@ -24,7 +24,7 @@ export const new_settlement = async (req: Request, res: Response) => {
       data: {
         id: result.id,
         title: settlement.title,
-        description: settlement.description,
+        price: settlement.price,
         proposer: settlement.proposer,
         verifier: settlement.verifier,
         status: SettlementStatus.Pending,
@@ -51,7 +51,7 @@ export const update_settlement = async (req: Request, res: Response) => {
       data: {
         id: id,
         title: settlement.title,
-        description: settlement.description,
+        price: settlement.price,
         proposer: settlement.proposer,
         verifier: settlement.verifier,
         status: settlement.status,
